@@ -1,0 +1,100 @@
+/* Global Layout */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f7fb;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Card style */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+/* Form elements */
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+select, input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+button {
+  padding: 10px 18px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background: #1e4fd1;
+}
+
+/* Equipment cards */
+.equipment-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.equipment-card {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  width: 180px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.equipment-card button {
+  background: #10b981;
+}
+
+.equipment-card button:hover {
+  background: #0e9c76;
+}
+
+/* Price Preview */
+.price-box {
+  background: #f0f6ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  border-left: 5px solid #2563eb;
+}
+
+.total-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}

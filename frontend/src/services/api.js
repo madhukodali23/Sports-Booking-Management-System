@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:5000/api';
+const BASE = 'https://sports-booking-management-system.onrender.com/api';
 
 export async function fetchJson(path) {
   const res = await fetch(BASE + path);

@@ -147,20 +147,5 @@ GET  /api/bookings
 
 ---
 
-## 📹 What to Include in the Submission Video
-
-- Open deployed frontend  
-- Select court & times  
-- Add equipment  
-- Add coach  
-- Click **Preview Price**  
-- Confirm booking  
-- Show Render backend logs  
-- Show Vercel deployment  
-- Show GitHub repo  
-- Show MongoDB Atlas collection  
-
----
-
 ## 🙌 Acknowledgements
 This project is developed as part of the **Acorn Globus Full-Stack Developer Assignment**, demonstrating backend logic, dynamic pricing systems, and a functional modern UI.

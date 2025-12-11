@@ -106,7 +106,7 @@ Automatically adjusts pricing based on:
 
 | Component | Link |
 |----------|------|
-| **Frontend (Vercel)** |[https://sports-booking-management-system.vercel.app/](https://sports-booking-management-system-b8s3s7ik2.vercel.app/) |
+| **Frontend (Vercel)** |[https://sports-booking-management-system.vercel.app](https://sports-booking-management-system-b8s3s7ik2.vercel.app/) |
 | **Backend (Render)** |[https://sports-booking-management-system.onrender.com](https://sports-booking-management-system.onrender.com)|
 | **GitHub Repo** | https://github.com/madhukodali23/sports-booking-management |
 

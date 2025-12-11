@@ -98,3 +98,13 @@ button:hover {
   font-weight: bold;
   margin-top: 10px;
 }
+
+.error-box {
+  background: #ffe5e5;
+  color: #b30000;
+  padding: 12px 16px;
+  border-left: 6px solid #ff0000;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}

@@ -11,6 +11,7 @@ export default function BookingForm({ courtId }) {
   const [selectedCoach, setSelectedCoach] = useState("");
   const [selectedEquipment, setSelectedEquipment] = useState([]);
   const [preview, setPreview] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(""); // NEW
 
   useEffect(() => {
     fetchJson("/coaches").then(setCoaches);
@@ -22,10 +23,7 @@ export default function BookingForm({ courtId }) {
     if (exists) {
       setSelectedEquipment(selectedEquipment.filter((e) => e.equipment !== id));
     } else {
-      setSelectedEquipment([
-        ...selectedEquipment,
-        { equipment: id, qty: 1 },
-      ]);
+      setSelectedEquipment([...selectedEquipment, { equipment: id, qty: 1 }]);
     }
   }
 
@@ -38,8 +36,12 @@ export default function BookingForm({ courtId }) {
   }
 
   async function previewPrice() {
-    if (!startTime || !endTime || !courtId)
-      return alert("Please select start, end & court");
+    setErrorMessage(""); // clear error box
+
+    if (!startTime || !endTime) {
+      setErrorMessage("Please select start and end time.");
+      return;
+    }
 
     const body = {
       courtId,
@@ -50,15 +52,22 @@ export default function BookingForm({ courtId }) {
     };
 
     const resp = await postJson("/bookings/calc", body);
-    if (resp?.pricingBreakdown) {
-      setPreview(resp);
-    } else {
-      alert(resp.message || "Price calculation failed");
+
+    if (!resp?.pricingBreakdown) {
+      setErrorMessage(resp.message || "Could not calculate price.");
+      return;
     }
+
+    setPreview(resp);
   }
 
   async function bookNow() {
-    if (!userName) return alert("Enter your name");
+    setErrorMessage(""); // clear error
+
+    if (!userName) {
+      setErrorMessage("Please enter your name.");
+      return;
+    }
 
     const body = {
       userName,
@@ -70,21 +79,33 @@ export default function BookingForm({ courtId }) {
     };
 
     const resp = await postJson("/bookings", body);
-    if (resp?.booking) {
-      alert("Booking successful!");
-      setPreview(null);
-      setUserName("");
-      setStartTime("");
-      setEndTime("");
-      setSelectedCoach("");
-      setSelectedEquipment([]);
-    } else {
-      alert(resp.message || "Booking failed");
+
+    if (resp?.message && !resp.booking) {
+      // This means error (court not available / coach unavailable / equipment not enough)
+      setErrorMessage(resp.message); // show red box
+      return;
     }
+
+    alert("Booking successful!");
+
+    setPreview(null);
+    setUserName("");
+    setStartTime("");
+    setEndTime("");
+    setSelectedCoach("");
+    setSelectedEquipment([]);
   }
 
   return (
     <div className="card">
+
+      {/* 🔥 ERROR BOX DISPLAY HERE */}
+      {errorMessage && (
+        <div className="error-box">
+          {errorMessage}
+        </div>
+      )}
+
       <label>Your Name:</label>
       <input
         value={userName}
@@ -93,14 +114,25 @@ export default function BookingForm({ courtId }) {
       />
 
       <label>Start Time:</label>
-      <input type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+      <input
+        type="datetime-local"
+        value={startTime}
+        onChange={(e) => setStartTime(e.target.value)}
+      />
 
       <label>End Time:</label>
-      <input type="datetime-local" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+      <input
+        type="datetime-local"
+        value={endTime}
+        onChange={(e) => setEndTime(e.target.value)}
+      />
 
       <label>Choose Coach (Optional):</label>
-      <select value={selectedCoach} onChange={(e) => setSelectedCoach(e.target.value)}>
-        <option value="">No coach</option>
+      <select
+        value={selectedCoach}
+        onChange={(e) => setSelectedCoach(e.target.value)}
+      >
+        <option value="">-- No coach --</option>
         {coaches.map((c) => (
           <option key={c._id} value={c._id}>
             {c.name} — ₹{c.hourlyRate}/hr
@@ -111,7 +143,10 @@ export default function BookingForm({ courtId }) {
       <label>Equipment:</label>
       <div className="equipment-list">
         {equipment.map((eq) => {
-          const isSelected = selectedEquipment.find((e) => e.equipment === eq._id);
+          const isSelected = selectedEquipment.find(
+            (e) => e.equipment === eq._id
+          );
+
           return (
             <div key={eq._id} className="equipment-card">
               <h4>{eq.name}</h4>
@@ -120,6 +155,7 @@ export default function BookingForm({ courtId }) {
               <button onClick={() => toggleEquip(eq._id)}>
                 {isSelected ? "Remove" : "Add"}
               </button>
+
               {isSelected && (
                 <div style={{ marginTop: "6px" }}>
                   Qty:
@@ -127,7 +163,9 @@ export default function BookingForm({ courtId }) {
                     type="number"
                     min="1"
                     value={isSelected.qty}
-                    onChange={(e) => changeQty(eq._id, Number(e.target.value))}
+                    onChange={(e) =>
+                      changeQty(eq._id, Number(e.target.value))
+                    }
                     style={{ width: "60px", marginLeft: "6px" }}
                   />
                 </div>
@@ -148,6 +186,7 @@ export default function BookingForm({ courtId }) {
           <pre style={{ whiteSpace: "pre-wrap" }}>
             {JSON.stringify(preview.pricingBreakdown, null, 2)}
           </pre>
+
           <div className="total-text">Total: ₹{preview.total}</div>
         </div>
       )}

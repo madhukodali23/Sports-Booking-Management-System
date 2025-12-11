@@ -106,9 +106,9 @@ Automatically adjusts pricing based on:
 
 | Component | Link |
 |----------|------|
-| **Frontend (Vercel)** | https://your-frontend-url.vercel.app |
-| **Backend (Render)** | https://your-backend-url.onrender.com |
-| **GitHub Repo** | https://github.com/YOUR_USERNAME/sports-booking-management |
+| **Frontend (Vercel)** |[https://your-frontend-url.vercel.app](https://sports-booking-management-system-b8s3s7ik2.vercel.app/) |
+| **Backend (Render)** |[ https://your-backend-url.onrender.com ](https://sports-booking-management-system.onrender.com)|
+| **GitHub Repo** | https://github.com/madhukodali23/sports-booking-management |
 
 *(Replace with your actual URLs)*
 
